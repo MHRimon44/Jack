@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_import
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_import, avoid_print
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +35,12 @@ class BlackJack extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          // TextButton(
+          //   onPressed: () {
+          //     print('Pressed');
+          //   },
+          //   child: Text('Magic Jack'),
+          // ),
           Image.asset(
             'assets/images/logo.png',
             width: 150,
@@ -57,10 +63,15 @@ class BlackJack extends StatelessWidget {
               ))
             ],
           ),
-          Image.asset(
-            'assets/images/dealbutton.png',
-            width: 125,
-            height: 150,
+          InkWell(
+            onTap: () {
+              print('Pressed');
+            },
+            child: Image.asset(
+              'assets/images/dealbutton.png',
+              width: 125,
+              height: 150,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

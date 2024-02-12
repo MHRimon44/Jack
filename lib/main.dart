@@ -21,9 +21,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class BlackJack extends StatelessWidget {
+class BlackJack extends StatefulWidget {
   const BlackJack({super.key});
 
+  @override
+  State<BlackJack> createState() => _BlackJackState();
+}
+
+class _BlackJackState extends State<BlackJack> {
+  int leftCardNumber = 2;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,14 +56,14 @@ class BlackJack extends StatelessWidget {
             children: [
               Expanded(
                 child: Image.asset(
-                  'assets/images/card2.png',
+                  'assets/images/card$leftCardNumber.png',
                   height: 150,
                   width: 175,
                 ),
               ),
               Expanded(
                   child: Image.asset(
-                'assets/images/card3.jpg',
+                'assets/images/card3.png',
                 height: 150,
                 width: 175,
               ))
@@ -65,7 +71,10 @@ class BlackJack extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              print('Pressed');
+              setState(() {
+                leftCardNumber = 4;
+              });
+              print(leftCardNumber);
             },
             child: Image.asset(
               'assets/images/dealbutton.png',

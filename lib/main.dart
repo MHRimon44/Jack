@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_import, avoid_print
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +32,13 @@ class BlackJack extends StatefulWidget {
 
 class _BlackJackState extends State<BlackJack> {
   int leftCardNumber = 2;
+  int rightCardNumber = 2;
+  int playerResult = 0;
+  int cpuResult = 0;
+  int totalGameCount = 0;
   @override
   Widget build(BuildContext context) {
+    print('Built Called');
     return Container(
       width: double.maxFinite,
       height: double.maxFinite,
@@ -63,7 +70,7 @@ class _BlackJackState extends State<BlackJack> {
               ),
               Expanded(
                   child: Image.asset(
-                'assets/images/card3.png',
+                'assets/images/card$rightCardNumber.png',
                 height: 150,
                 width: 175,
               ))
@@ -72,9 +79,22 @@ class _BlackJackState extends State<BlackJack> {
           InkWell(
             onTap: () {
               setState(() {
-                leftCardNumber = 4;
+                int mLeftNumber = Random().nextInt(13);
+                int mRightNumber = Random().nextInt(13);
+                leftCardNumber = mLeftNumber + 2;
+                rightCardNumber = mRightNumber + 2;
+                totalGameCount = totalGameCount + 1;
+
+                if (leftCardNumber != rightCardNumber) {
+                  if (leftCardNumber > rightCardNumber) {
+                    playerResult = playerResult + 1;
+                  } else {
+                    cpuResult = cpuResult + 1;
+                  }
+                }
+
+                print(leftCardNumber);
               });
-              print(leftCardNumber);
             },
             child: Image.asset(
               'assets/images/dealbutton.png',
@@ -92,7 +112,7 @@ class _BlackJackState extends State<BlackJack> {
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   Text(
-                    '0',
+                    '$playerResult',
                     style: TextStyle(
                       fontSize: 22,
                       color: Colors.white,
@@ -111,7 +131,7 @@ class _BlackJackState extends State<BlackJack> {
                     ),
                   ),
                   Text(
-                    '0',
+                    '$cpuResult',
                     style: TextStyle(
                         fontSize: 22,
                         color: Colors.white,
@@ -122,7 +142,7 @@ class _BlackJackState extends State<BlackJack> {
             ],
           ),
           Text(
-            "How many time played the game = 0",
+            "How many time played the game = $totalGameCount",
             style: TextStyle(fontSize: 20, color: Colors.white),
           )
         ],

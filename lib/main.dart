@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jack/models/card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,11 +32,9 @@ class BlackJack extends StatefulWidget {
 }
 
 class _BlackJackState extends State<BlackJack> {
-  int leftCardNumber = 2;
-  int rightCardNumber = 2;
-  int playerResult = 0;
-  int cpuResult = 0;
-  int totalGameCount = 0;
+  MyCard playingCard2 = MyCard(2, 2, 0, 0, 0);
+  //MyCard playingCard3 = MyCard(3, 3, 0, 0, 0);
+
   @override
   Widget build(BuildContext context) {
     print('Built Called');
@@ -48,12 +47,6 @@ class _BlackJackState extends State<BlackJack> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          // TextButton(
-          //   onPressed: () {
-          //     print('Pressed');
-          //   },
-          //   child: Text('Magic Jack'),
-          // ),
           Image.asset(
             'assets/images/logo.png',
             width: 150,
@@ -63,14 +56,14 @@ class _BlackJackState extends State<BlackJack> {
             children: [
               Expanded(
                 child: Image.asset(
-                  'assets/images/card$leftCardNumber.png',
+                  'assets/images/card${playingCard2.getLeftNumber()}.png',
                   height: 150,
                   width: 175,
                 ),
               ),
               Expanded(
                   child: Image.asset(
-                'assets/images/card$rightCardNumber.png',
+                'assets/images/card${playingCard2.getRightNumber()}.png',
                 height: 150,
                 width: 175,
               ))
@@ -79,21 +72,8 @@ class _BlackJackState extends State<BlackJack> {
           InkWell(
             onTap: () {
               setState(() {
-                int mLeftNumber = Random().nextInt(13);
-                int mRightNumber = Random().nextInt(13);
-                leftCardNumber = mLeftNumber + 2;
-                rightCardNumber = mRightNumber + 2;
-                totalGameCount = totalGameCount + 1;
-
-                if (leftCardNumber != rightCardNumber) {
-                  if (leftCardNumber > rightCardNumber) {
-                    playerResult = playerResult + 1;
-                  } else {
-                    cpuResult = cpuResult + 1;
-                  }
-                }
-
-                print(leftCardNumber);
+                playingCard2.changeCardNumber();
+                playingCard2.updateResult();
               });
             },
             child: Image.asset(
@@ -112,7 +92,7 @@ class _BlackJackState extends State<BlackJack> {
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   Text(
-                    '$playerResult',
+                    '${playingCard2.getUserResult()}',
                     style: TextStyle(
                       fontSize: 22,
                       color: Colors.white,
@@ -131,7 +111,7 @@ class _BlackJackState extends State<BlackJack> {
                     ),
                   ),
                   Text(
-                    '$cpuResult',
+                    '${playingCard2.getCpuResult()}',
                     style: TextStyle(
                         fontSize: 22,
                         color: Colors.white,
@@ -142,7 +122,7 @@ class _BlackJackState extends State<BlackJack> {
             ],
           ),
           Text(
-            "How many time played the game = $totalGameCount",
+            "How many time played the game = ${playingCard2.getTotalPlayed()}",
             style: TextStyle(fontSize: 20, color: Colors.white),
           )
         ],
